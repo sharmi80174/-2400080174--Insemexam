@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body { font-family: Arial; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; background:#f0f2f5; }
+    .form-container { background:#fff; padding:20px; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.1); width:300px; }
+    h2 { text-align:center; margin-bottom:15px; }
+    label { display:block; margin:8px 0 4px; }
+    input { width:100%; padding:8px; margin-bottom:5px; border:1px solid #ccc; border-radius:4px; }
+    .error { color:red; font-size:12px; margin-bottom:5px; }
+    button { width:100%; padding:10px; border:none; border-radius:4px; background:#4CAF50; color:white; cursor:pointer; }
+    button:hover { background:#45a049; }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Register</h2>
+    <form id="regForm">
+      <label>Username:</label><input type="text" id="username" required><div class="error" id="uErr"></div>
+      <label>Email:</label><input type="email" id="email" required><div class="error" id="eErr"></div>
+      <label>Password:</label><input type="password" id="pass" required><div class="error" id="pErr"></div>
+      <label>Confirm Password:</label><input type="password" id="cpass" required><div class="error" id="cpErr"></div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    const form=document.getElementById('regForm');
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      let valid=true;
+      document.querySelectorAll('.error').forEach(el=>el.textContent='');
+      const u=document.getElementById('username').value.trim();
+      const em=document.getElementById('email').value.trim();
+      const p=document.getElementById('pass').value;
+      const cp=document.getElementById('cpass').value;
+
+      if(u.length<3){document.getElementById('uErr').textContent='Username ≥ 3 chars'; valid=false;}
+      if(!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(em)){document.getElementById('eErr').textContent='Invalid email'; valid=false;}
+      if(p.length<6){document.getElementById('pErr').textContent='Password ≥ 6 chars'; valid=false;}
+      if(p!==cp){document.getElementById('cpErr').textContent='Passwords do not match'; valid=false;}
+
+      if(valid){alert('Registered Successfully!'); form.reset();}
+    });
+  </script>
+</body>
+</html>
